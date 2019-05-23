@@ -6,13 +6,14 @@ import java.util.ArrayList;
 
 public class PortStand {
     private GraphicsContext graphicsContext;
-    private float timeRemaining;
+    private double timeRemaining;
     private ArrayList<Ship> activeShips;
     private ArrayList<Ship> waitingShips;
     private int loadPerTimestep;
     private int startX;
     private int startY;
     private volatile int shipsToDraw=0;
+    private volatile double finishPercentage=0;
     private  final Image portImage=new Image("file:assets/portStand.png");
     public PortStand( ArrayList<Ship> activeShips, ArrayList<Ship> waitingShips,int loadPerTimestep,
                       GraphicsContext graphicsContext,int startX,int startY) {
@@ -38,7 +39,9 @@ public class PortStand {
         }
         waitingShips.remove(ship);
         activeShips.add(ship);
+        double jobTime=Math.ceil((ship.getCargoUnits()+ship.getUnitsToLoad())/(double)loadPerTimestep);
         while(!ship.canLeave()){
+
             ship.load(loadPerTimestep);
             try{
                 ship.sleep(Main.timeStep);
@@ -46,7 +49,9 @@ public class PortStand {
 
             }
             ship.printLoad();
+            finishPercentage=1-Math.ceil((ship.getCargoUnits()+ship.getUnitsToLoad())/(double)loadPerTimestep)/jobTime;
         }
+        finishPercentage=0;
         shipsToDraw--;
         activeShips.remove(ship);
         ship.setDockable(false);
@@ -72,5 +77,9 @@ public class PortStand {
 
     public int getStartY() {
         return startY;
+    }
+
+    public double getFinishPercentage() {
+        return finishPercentage;
     }
 }

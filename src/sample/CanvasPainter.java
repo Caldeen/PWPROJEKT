@@ -22,8 +22,9 @@ public class CanvasPainter {
             graphicsContext.fillText("waiting"+portStand.getShipsToDraw()+"\nLoad per Time Step: "+portStand.getLoadPerTimestep()
                     ,portStand.getStartX(),15);
             portStand.drawPortStand();
-
+            System.out.println(portStand.getFinishPercentage());
         }
+
     }
     public void drawBackground(GraphicsContext graphicsContext){
         graphicsContext.setFill(Color.LIGHTSTEELBLUE);
