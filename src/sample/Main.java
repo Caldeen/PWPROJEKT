@@ -22,9 +22,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Main extends Application {
-public static long timeStep=400;
+public static long timeStep=300;
 public PortStand port1,port2,port3;
     private ArrayList<PortStand> portStands;
+    Timer timer;
 @Override
  public void init(){ }
     @Override
@@ -74,14 +75,14 @@ public PortStand port1,port2,port3;
 
         primaryStage.setScene(scene);
         primaryStage.show();
-        Timer timer=new Timer();
+        timer=new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 canvasPainter.drawBackground(graphicsContext);
                 canvasPainter.drawFromPortStands(portStands,graphicsContext);
             }
-        },0,timeStep);
+        },0,timeStep/5);
     }
 
     public static void main(String[] args) {
@@ -196,6 +197,11 @@ public PortStand port1,port2,port3;
         sliderAndButtonCreation(gridPane,0,7,new TextField(),new Button()," PortStand",12,new Slider(1,3,5),
                 true,1,shipT,which);
 
+    }
+
+    @Override
+    public void stop(){
+    timer.cancel();
     }
 
 }
