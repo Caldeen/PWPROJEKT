@@ -156,16 +156,14 @@ public PortStand port1,port2,port3;
     private void createNewShipButton(GridPane gridPane,Ship shipT){
      Button button=new Button("New Ship");
     Label label=new Label();
-     button.setOnAction(new EventHandler<ActionEvent>() {
-         @Override
-         public void handle(ActionEvent event) {
+     button.setOnAction((ActionEvent event)-> {
              Ship newShip= shipT.createFromShipTemplate(shipT,label);
              if(newShip!=null){
                  shipT.getPortStand().decShipsToDraw();
                  shipT.getPortStand().names.add(shipT.getShipName());
                  newShip.start();
                  shipT.printLoad();
-             }
+
          }
      });
      button.setPrefSize(100,100);
