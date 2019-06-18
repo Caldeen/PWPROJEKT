@@ -15,11 +15,13 @@ public class CanvasPainter {
     public void drawFromPortStands(ArrayList<PortStand>portStands,GraphicsContext graphicsContext){
         for(PortStand portStand:portStands){
             int spacing=0;
+            graphicsContext.setFill(Color.ANTIQUEWHITE);
             for(int i=0;i<portStand.getShipsToDraw();i++){
                     graphicsContext.drawImage(shipImage,portStand.getStartX(),portStand.getStartY()+95+spacing);
+
+                    graphicsContext.fillText("Name  "+portStand.names.get(i),portStand.getStartX(),portStand.getStartY()+95+spacing);
                     spacing+=shipImage.getHeight()+10;
             }
-            graphicsContext.setFill(Color.ANTIQUEWHITE);
             graphicsContext.fillText("waiting"+portStand.getShipsToDraw()+"\nLoad per Time Step: "+portStand.getLoadPerTimestep()
                     ,portStand.getStartX(),15);
             portStand.drawPortStand();

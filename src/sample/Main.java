@@ -162,6 +162,7 @@ public PortStand port1,port2,port3;
              Ship newShip= shipT.createFromShipTemplate(shipT,label);
              if(newShip!=null){
                  shipT.getPortStand().decShipsToDraw();
+                 shipT.getPortStand().names.add(shipT.getShipName());
                  newShip.start();
                  shipT.printLoad();
              }

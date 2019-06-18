@@ -14,6 +14,7 @@ public class PortStand {
     private int startY;
     private volatile int shipsToDraw=0;
     private volatile double finishPercentage=0;
+    volatile ArrayList<String>  names=new ArrayList<>();
     private  final Image portImage=new Image("file:assets/portStand.png");
     public PortStand( ArrayList<Ship> activeShips, ArrayList<Ship> waitingShips,int loadPerTimestep,
                       GraphicsContext graphicsContext,int startX,int startY) {
@@ -53,6 +54,7 @@ public class PortStand {
         }
         finishPercentage=0;
         shipsToDraw--;
+        names.remove(ship.getShipName());
         activeShips.remove(ship);
         ship.setDockable(false);
         this.notifyAll();
